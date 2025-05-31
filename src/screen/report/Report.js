@@ -1,4 +1,4 @@
-import { ActivityIndicator, StyleSheet, Text, View, } from 'react-native'
+import { ActivityIndicator, ScrollView, StyleSheet, Text, View, } from 'react-native'
 import React, { useState, useCallback } from 'react'
 import AllColor, { width } from '../../util/color/Color'
 import DateSlider from '../../component/DateSlider/DateSlider'
@@ -16,9 +16,7 @@ const Report = () => {
     const [curentDate, setcurentDate] = useState(moment());
     const [data, setdata] = useState("");
     const [dates, setdates] = useState([]);
-    // styleConsole("🚀 ~ Report.js:19 ~ Report ~ dates:", "Report", dates)
 
-    // styleConsole("🚀 ~ Report.js:10 ~ Report ~ curentDate:", "curentDate", data.report)
 
     // --------go to next day-----------
     const goToNextMonth = () => {
@@ -167,16 +165,23 @@ const Report = () => {
             </>
 
 
-
             {
-                Array.isArray(dates.report) && data.report.length > 0 && dates?.report.map((item, index) => {
-                    return (
-                        <View key={index}>
-                            <Text>{new Date(item._id).getDate()}</Text>
-                        </View>
-                    )
-                })
+                Array.isArray(dates.report) && dates.report.length > 0 && (
+                    <ScrollView>
+                        {
+                            dates.report.map((item, index) => (
+                                <View key={index} style={styles.attendance_container}>
+                                    <View style={styles.attendanceCard}>
+                                        <Text>{new Date(item.parsedDate).getDate()}</Text>
+                                        <Text style={{ color: AllColor.black }}>{item.status.toUpperCase()}</Text>
+                                    </View>
+                                </View>
+                            ))
+                        }
+                    </ScrollView>
+                )
             }
+
 
         </View >
     )
@@ -203,121 +208,23 @@ const styles = StyleSheet.create({
         alignItems: "center",
         marginRight: scale(10),
         elevation: scale(5)
+    },
+    attendance_container: {
+        // backgroundColor: AllColor.rgbaOrange,
+        width: width,
+        paddingVertical: scale(10),
+    },
+    attendanceCard: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: "100%",
+        backgroundColor: AllColor.white,
+        elevation: scale(1),
+        flexDirection: "row",
+        justifyContent: 'space-evenly',
+        paddingVertical: scale(10)
     }
 })
 
 
-// import React, { useState } from 'react';
-// import { View, Text, ScrollView, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-// import { styleConsole } from '../../util/Helper/Helper';
 
-
-// const generateDates = (month = 'May', days = 31) => {
-//     return Array.from({ length: days }, (_, i) => {
-//         const day = String(i + 1).padStart(2, '0');
-//         return `${day} ${month}`;
-//     });
-// };
-
-
-
-// const students = ['Alice', 'Bob', 'Charlie', 'David'];
-// const dates = generateDates();
-
-// export default function AttendanceTable() {
-//     const [attendance, setAttendance] = useState(students.map(() => dates.map(() => false)));
-//     styleConsole("🚀 ~ Report.js:200 ~ AttendanceTable ~ attendance:", "AttendanceTable", attendance)
-
-
-//     const toggleAttendance = (studentIndex, dateIndex) => {
-//         const updated = [...attendance];
-//         updated[studentIndex][dateIndex] = !updated[studentIndex][dateIndex];
-//         setAttendance(updated);
-//     };
-
-//     return (
-//         <View style={styles.container}>
-//             {/* Horizontal Scroll for Dates */}
-//             <ScrollView horizontal>
-//                 <View>
-//                     {/* Header Row */}
-//                     <View style={styles.row}>
-//                         <View style={styles.nameCell}>
-//                             <Text style={styles.headerText}>Name</Text>
-//                         </View>
-//                         {
-//                             dates.map((date, idx) => (
-//                                 <View style={styles.cell} key={idx}>
-//                                     <Text style={styles.headerText}>{date}</Text>
-//                                 </View>
-//                             ))
-//                         }
-//                     </View>
-
-//                     {/* Data Rows */}
-//                     {
-//                         students.map((student, studentIdx) => (
-//                             <View style={styles.row} key={studentIdx}>
-//                                 <View style={styles.nameCell}>
-//                                     <Text style={styles.nameText}>{student}</Text>
-//                                 </View>
-//                                 {
-//                                     dates.map((_, dateIdx) => (
-//                                         <TouchableOpacity key={dateIdx} style={[styles.cell, attendance[studentIdx][dateIdx] ? styles.present : styles.absent,]}
-//                                             onPress={() => toggleAttendance(studentIdx, dateIdx)}
-//                                         >
-//                                             <Text style={styles.cellText}>
-//                                                 {attendance[studentIdx][dateIdx] ? '✔' : '✘'}
-//                                             </Text>
-//                                         </TouchableOpacity>
-//                                     ))
-//                                 }
-//                             </View>
-//                         ))
-//                     }
-//                 </View>
-//             </ScrollView>
-//         </View>
-//     );
-// }
-
-// const cellSize = 80;
-
-// const styles = StyleSheet.create({
-//     container: {
-//         padding: 10,
-//         marginTop: 40,
-//     },
-//     row: {
-//         flexDirection: 'row',
-//     },
-//     nameCell: {
-//         width: cellSize,
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         borderWidth: 1,
-//         backgroundColor: '#e6f0ff',
-//     },
-//     cell: {
-//         width: cellSize,
-//         height: 40,
-//         justifyContent: 'center',
-//         alignItems: 'center',
-//         borderWidth: 1,
-//     },
-//     present: {
-//         backgroundColor: '#ccffcc',
-//     },
-//     absent: {
-//         backgroundColor: '#ffcccc',
-//     },
-//     headerText: {
-//         fontWeight: 'bold',
-//     },
-//     nameText: {
-//         fontSize: 14,
-//     },
-//     cellText: {
-//         fontSize: 18,
-//     },
-// });

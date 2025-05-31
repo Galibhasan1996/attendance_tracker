@@ -3,7 +3,7 @@ import { launchCamera } from "react-native-image-picker";
 import Toast from "react-native-toast-message";
 
 const MID = 145
-const PORT = 175
+const PORT = 143
 // -----------for real device---------------
 export const BASE_URL = __DEV__ ? `http://192.168.${MID}.${PORT}:3000/api/v1/` : `https://changeroombackend.onrender.com/api/v1/`
 

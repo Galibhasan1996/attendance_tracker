@@ -70,7 +70,7 @@ const AllColor = {
     rgbaBlack: "rgba(0,0,0,0.2)",
     rgbaGreen: "rgba(0,255,0,0.31)",
     rgbaRed: "rgba(253,0,255,0.5)",
-    rgbaBlue: "rgba(0,0,255,0.4)",
+    rgbaBlue: "rgba(0,0,255,0.1)",
     rgbaGray: "rgba(128,128,128,0.3)",
     rgbaOrange: "rgba(255,165,0,0.5)",
     totalTransparent: "rgba(0,0,0,0)",
